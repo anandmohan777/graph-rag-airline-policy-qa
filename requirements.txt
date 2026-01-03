@@ -1,0 +1,43 @@
+# LangChain Core and Plugins
+langchain==0.3.27
+langchain-community==0.3.27
+langchainhub==0.1.21
+
+# Updated external LangChain plugins (required due to deprecations)
+langchain-huggingface==0.3.1
+langchain-chroma==0.2.5
+langchain-ollama==0.3.6
+langchain-experimental==0.3.4
+einops>=0.7.0
+
+
+# Embedding & Transformers
+sentence-transformers==5.0.0
+transformers==4.54.0
+nltk==3.8.1
+
+# Document parsing (e.g., markdown support)
+unstructured[md]==0.12.5
+
+# API / Frontend Tools
+fastapi==0.110.0
+uvicorn==0.29.0
+streamlit==1.35.0
+
+# Networking
+requests==2.31.0
+
+
+# Evaluation Libraries
+evaluate==0.4.2
+bert-score==0.3.13
+scikit-learn==1.5.0
+rouge-score==0.1.2
+
+
+# Add to requirements.txt (only if needed, you might already have these)
+py2neo==2021.2.4  # Neo4j Python driver
+networkx==3.2.1   # Graph analysis
+python-multipart==0.0.6  # For file uploads if needed
+neo4j==5.22.0
+json-repair
