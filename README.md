@@ -8,13 +8,13 @@ This project provides a Streamlit-based UI to compare a **Standard RAG** pipelin
 
 Key Python modules:
 
-- `app.py`: Streamlit application (UI, controls, dashboards, and evaluation workflows).
-- `standard_rag.py`: Standard RAG implementation using ChromaDB and HuggingFace embeddings.
-- `graph_rag.py`: GraphRAG implementation using Neo4j (knowledge graph + Neo4jVector). 
-- `evaluator.py`: LLM-as-a-Judge evaluator with hybrid scoring (LLM + section matching). 
-- `requirements.txt`: Python dependencies for all components.
+- [`app.py`](./app.py): Streamlit application (UI, controls, dashboards, and evaluation workflows).
+- [`standard_rag.py`](./standard_rag.py): Standard RAG implementation using ChromaDB and HuggingFace embeddings.
+- [`graph_rag.py`](./graph_rag.py): GraphRAG implementation using Neo4j (knowledge graph + Neo4jVector). 
+- [`evaluator.py`](./evaluator.py): LLM-as-a-Judge evaluator with hybrid scoring (LLM + section matching). 
+- [`requirements.txt`](./requirements.txt): Python dependencies for all components.
 
-The folder containing airline booking policy documents stored in `data/policies` to build the indices and graph.
+The folder containing airline booking policy documents stored in [`data/policies`](./data/policies) to build the indices and graph.
 
 ---
 
@@ -130,7 +130,7 @@ This allows side-by-side qualitative comparison of both systems’ answers and r
 ### 5.4 Batch evaluation (LLM-as-a-Judge)
 In the “Batch Evaluation (LLM-as-a-Judge)” tab:
 
-1. Upload the CSV containing the evaluation data. For testing, the file `airlines_multihop_eval_v1.csv` is used as an example in this repository.
+1. Upload the CSV containing the evaluation data. For testing, the file [`airlines_multihop_eval_v1.csv`](./airlines_multihop_eval_v1.csv) is used as an example in this repository.
 
 2. The app previews the first few rows and reports how many questions will be evaluated.
 
