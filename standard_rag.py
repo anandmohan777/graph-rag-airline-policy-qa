@@ -176,7 +176,7 @@ class StandardRAG:
             return False, f"❌ Error rebuilding index: {str(e)}"
 
     # ========================================================================
-    # YOUR EXISTING FUNCTIONS FROM RAG.py - PRESERVED AS-IS
+    # RAG.py
     # ========================================================================
 
     def _llm_extract_airlines(self, query: str) -> List[str]:
@@ -248,10 +248,10 @@ class StandardRAG:
         start_time = time.time()
 
         try:
-            # Extract airlines using existing function
+            # Extract airlines
             mentioned_airlines = self._llm_extract_airlines(question)
 
-            # Classify intent using YOUR existing function
+            # Classify intent
             intent = self._classify_intent(mentioned_airlines)
 
             print("Airline RAG: ", mentioned_airlines)
@@ -276,7 +276,7 @@ class StandardRAG:
                 for doc in source_documents
             ])
 
-            # Generate answer using YOUR existing answer prompt structure
+            # Generate answer using answer prompt structure
             answer_prompt = f"""
             You are an expert in {mentioned_airlines} policy interpretation.
 
