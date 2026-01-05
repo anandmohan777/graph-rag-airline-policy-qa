@@ -111,7 +111,7 @@ class GraphRAG:
             self.graph.query("MATCH (n) DETACH DELETE n")
             self.graph.query("DROP INDEX policy_content IF EXISTS")
 
-            # Load documents using YOUR existing function structure
+            # Load documents
             docs, msg = self._load_documents_from_dir(folder_path)
             if not docs:
                 return False, msg
@@ -121,7 +121,7 @@ class GraphRAG:
             for doc in docs:
                 docs_by_airline[doc.metadata["airline"]].append(doc)
 
-            # Build graph for each airline using YOUR existing setup_system logic
+            # Build graph for each airline
             success, message = self._setup_system(docs_by_airline)
 
             if success:
@@ -134,7 +134,7 @@ class GraphRAG:
             return False, f"❌ Error rebuilding graph: {str(e)}"
 
     # ========================================================================
-    # YOUR EXISTING FUNCTIONS FROM graphRAG.py - PRESERVED AS-IS
+    # graphRAG.py
     # ========================================================================
 
     def _load_documents_from_dir(self, folder_path: str) -> Tuple[List[Document], str]:
@@ -158,7 +158,7 @@ class GraphRAG:
             return [], f"Error loading documents: {str(e)}"
 
     def _extract_document_structure(self, documents: List[Document], airline_name: str) -> Dict[str, Any]:
-        """Extract document structure using YOUR existing LLM prompt."""
+        """Extract document structure using LLM prompt."""
         structure_prompt = """
         You are a document structure analyst. Extract the airline information, structural hierarchy with FULL CONTENT, and cross-references for ANY airline policy document.
 
@@ -256,7 +256,7 @@ class GraphRAG:
             return {}
 
     def _create_knowledge_graph(self, document_structure: Dict[str, Any]) -> Tuple[bool, str]:
-        """Create knowledge graph using YOUR existing Cypher queries."""
+        """Create knowledge graph using Cypher queries."""
         try:
             airline = document_structure.get("airline", {})
 
@@ -351,7 +351,7 @@ class GraphRAG:
             return False, f"Error creating knowledge graph: {str(e)}"
 
     def _create_vector_store(self, document_structure: Dict[str, Any]) -> Tuple[bool, str]:
-        """Create vector store using YOUR existing structure."""
+        """Create vector store"""
         try:
             airline = document_structure.get("airline", {})
             sections = document_structure.get("structural_hierarchy", [])
@@ -386,7 +386,7 @@ class GraphRAG:
             return False, f"Error creating vector store: {str(e)}"
 
     def _setup_system(self, documents_by_airline: Dict[str, List[Document]]) -> Tuple[bool, str]:
-        """Setup system for all airlines using YOUR existing logic."""
+        """Setup system for all airlines."""
         for airline_name, docs_for_airline in documents_by_airline.items():
             success, msg = self._setup_single_airline_system(docs_for_airline, airline_name)
             if not success:
@@ -413,7 +413,7 @@ class GraphRAG:
             return False, str(e)
 
     def _llm_extract_airlines(self, query: str) -> List[str]:
-        """Use LLM to extract airlines from query - YOUR EXISTING FUNCTION."""
+        """Use LLM to extract airlines from query."""
         prompt = f"""Extract all airline company names mentioned in the query. 
         Return ONLY the standardized airline names, comma-separated, with no extra words, 
         no explanations, no labels, no quotes. If none, return: none.
@@ -455,7 +455,7 @@ class GraphRAG:
             return []
 
     def _classify_intent(self, airlines: List[str]) -> str:
-        """Classify query intent - YOUR EXISTING FUNCTION."""
+        """Classify query intent"""
         if len(airlines) == 1:
             return "targeted"
         elif len(airlines) > 1:
@@ -464,7 +464,7 @@ class GraphRAG:
             return "ambiguous"
 
     def _retrieve_with_filter(self, question: str, mentioned_airlines: str, k: int = RETRIEVER_K_GRAPHRAG) -> List[Document]:
-        """Retrieve with filter - YOUR EXISTING FUNCTION."""
+        """Retrieve with filter."""
         vector_results = self.vector_store.similarity_search(
             question,
             k=k,
@@ -473,7 +473,7 @@ class GraphRAG:
         return vector_results
 
     def _get_connected_sections(self, section_ids: List[str]) -> List[str]:
-        """Get connected sections via graph traversal - YOUR EXISTING FUNCTION."""
+        """Get connected sections via graph traversal."""
         if not section_ids:
             return []
 
@@ -491,7 +491,7 @@ class GraphRAG:
             return []
 
     def _get_sections_content(self, section_ids: List[str]) -> str:
-        """Get sections content - YOUR EXISTING FUNCTION."""
+        """Get sections content."""
         if not section_ids:
             return "No content found"
 
@@ -517,7 +517,7 @@ class GraphRAG:
             return f"Error retrieving content: {str(e)}"
 
     def _generate_answer(self, question: str, context: str, section_ids: List[str], airline_name: List[str]) -> str:
-        """Generate answer - YOUR EXISTING FUNCTION with YOUR EXISTING PROMPT."""
+        """Generate answer."""
         if not airline_name:
             airline_name = KNOWN_AIRLINES
 
@@ -570,14 +570,14 @@ class GraphRAG:
             return f"Error generating answer: {str(e)}"
 
     async def query_async(self, question: str) -> Dict[str, Any]:
-        """Query GraphRAG system using YOUR EXISTING GRAPHRAG_QUERY LOGIC."""
+        """Query GraphRAG system."""
         start_time = time.time()
 
         try:
-            # Extract airlines using YOUR existing function
+            # Extract airlines
             mentioned_airlines = self._llm_extract_airlines(question)
 
-            # Classify intent using YOUR existing function
+            # Classify intent
             intent = self._classify_intent(mentioned_airlines)
 
             # Retrieve documents based on intent
@@ -613,7 +613,7 @@ class GraphRAG:
             # Get content
             all_content = self._get_sections_content(all_relevant_ids)
 
-            # Generate answer using YOUR existing function
+            # Generate answer
             answer = self._generate_answer(question, all_content, all_relevant_ids, mentioned_airlines)
             # answer = "test answer"
 
