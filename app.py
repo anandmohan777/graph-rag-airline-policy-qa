@@ -382,7 +382,7 @@ def main():
                     graph_df = df[df['system'] == 'GraphRAG']
 
                     # ============================================================
-                    # SECTION 1: SUMMARY METRICS PANEL (CORRECTED)
+                    # SECTION 1: SUMMARY METRICS PANEL
                     # ============================================================
                     st.markdown("### 🎯 Overall Performance Summary")
 
@@ -454,7 +454,7 @@ def main():
                     with col3:
                         st.markdown("**Sections Retrieved (Avg)**")
                         subcol1, subcol2 = st.columns(2)
-                        # FIXED: Use retrieved_sections instead of num_sections
+                        # Use retrieved_sections instead of num_sections
                         if 'retrieved_sections' in std_df.columns:
                             # Count sections in the list
                             std_sections_count = std_df['retrieved_sections'].apply(
@@ -480,7 +480,7 @@ def main():
                         std_row = std_df[std_df['question'] == question].iloc[0]
                         graph_row = graph_df[graph_df['question'] == question].iloc[0]
 
-                        # FIXED: Handle retrieved_sections safely
+                        # Handle retrieved_sections safely
                         std_sections = len(std_row.get('retrieved_sections', [])) if isinstance(
                             std_row.get('retrieved_sections'), list) else 0
                         graph_sections = len(graph_row.get('retrieved_sections', [])) if isinstance(
@@ -774,11 +774,11 @@ def main():
                     st.markdown("---")
 
                     # ============================================================
-                    # SECTION 4: ADDITIONAL INSIGHTS (CORRECTED)
+                    # SECTION 4: ADDITIONAL INSIGHTS
                     # ============================================================
                     st.markdown("### 💡 Key Insights")
 
-                    # Calculate insights - FIXED
+                    # Calculate insights
                     if 'retrieved_sections' in std_df.columns:
                         avg_std_sections = std_df['retrieved_sections'].apply(
                             lambda x: len(x) if isinstance(x, list) else 0).mean()
