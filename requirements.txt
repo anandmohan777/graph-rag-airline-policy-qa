@@ -17,7 +17,7 @@ transformers==4.54.0
 nltk==3.8.1
 
 # Document parsing (e.g., markdown support)
-unstructured[md]==0.12.5
+unstructured>=0.16.19
 
 # API / Frontend Tools
 fastapi==0.110.0
